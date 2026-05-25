@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core.id — Internet Cepat, Hiburan Hebat!</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800;1,900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --g:#39e03b; --y:#f5c800; --dark:#080c08;
+  --card:#0d1a0d; --border:rgba(255,255,255,0.08);
+  --lg:#00d45a; --ly:#ffd700;
+}
+body{font-family:'Montserrat',sans-serif;background:var(--dark);color:#fff;min-height:100vh}
+
+/* ══ TABS ══ */
+.tab-nav{display:flex;background:#060a06;border-bottom:1px solid rgba(57,224,59,.2);position:sticky;top:0;z-index:100}
+.tab-btn{flex:1;padding:14px 10px;background:none;border:none;color:rgba(255,255,255,.45);
+  font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;cursor:pointer;border-bottom:2px solid transparent;transition:.2s}
+.tab-btn.active{color:#fff;border-bottom-color:var(--g)}
+.tab-btn span{display:block;font-size:17px;margin-bottom:3px}
+.tab-page{display:none;animation:fadeIn .3s ease}
+.tab-page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════
+   BROSUR PAGE
+══════════════════════════════ */
+.brosur{max-width:640px;margin:0 auto}
+
+/* ── HERO SECTION ── */
+.hero{
+  position:relative;overflow:hidden;
+  background:#080c08;
+  padding:28px 20px 20px;
+  min-height:340px;
+}
+/* conic ray background from bottom-left */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    conic-gradient(from 225deg at 5% 98%,
+      transparent 0deg,
+      rgba(57,224,59,.18) 4deg, transparent 8deg,
+      rgba(57,224,59,.12) 12deg, transparent 16deg,
+      rgba(245,200,0,.10) 20deg, transparent 24deg,
+      rgba(57,224,59,.14) 28deg, transparent 32deg,
+      rgba(57,224,59,.08) 36deg, transparent 40deg,
+      rgba(245,200,0,.08) 44deg, transparent 48deg,
+      rgba(57,224,59,.10) 52deg, transparent 56deg,
+      transparent 360deg
+    );
+  pointer-events:none;
+}
+/* grid overlay */
+.hero::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(90deg,rgba(57,224,59,.03) 0,rgba(57,224,59,.03) 1px,transparent 1px,transparent 48px),
+    repeating-linear-gradient(0deg,rgba(57,224,59,.03) 0,rgba(57,224,59,.03) 1px,transparent 1px,transparent 48px);
+  pointer-events:none;
+}
+
+/* extra radial glow */
+.hero-glow{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 100% 0%,rgba(245,200,0,.08) 0%,transparent 55%),
+             radial-gradient(ellipse 50% 40% at 0% 100%,rgba(57,224,59,.12) 0%,transparent 50%)}
+
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center}
+@media(max-width:520px){.hero-inner{grid-template-columns:1fr}}
+
+/* left */
+.h-left{}
+.h-logo{font-size:2.6rem;font-weight:900;letter-spacing:-1px;line-height:1;margin-bottom:10px}
+.h-logo .gc{color:var(--g)}.h-logo .yc{color:var(--y)}
+.h-title{font-size:1.5rem;font-weight:900;text-transform:uppercase;line-height:1.05;margin-bottom:14px}
+.h-title .l1{display:block;color:#fff;font-style:italic;
+  text-shadow:0 0 30px rgba(255,255,255,.1)}
+.h-title .l2{display:block;font-style:italic;
+  background:linear-gradient(90deg,var(--g) 0%,var(--y) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+/* speed lines after "CEPAT" */
+.speed-lines{display:inline-block;margin-left:4px;opacity:.7}
+
+/* pills */
+.h-pills{display:flex;flex-direction:column;gap:7px}
+.h-pill{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(0,0,0,.4);border:1px solid rgba(57,224,59,.25);
+  border-radius:8px;padding:7px 12px;font-size:10px;font-weight:700;
+  letter-spacing:.5px;text-transform:uppercase;color:#ddd;
+}
+.h-pill .pic{font-size:1.1rem;flex-shrink:0}
+
+/* right — TV */
+.h-right{position:relative;display:flex;flex-direction:column;align-items:center}
+@media(max-width:520px){.h-right{display:none}}
+
+/* wifi badge */
+.badge-wifi{
+  position:absolute;top:-8px;left:30px;z-index:3;
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,#39e03b,#1db81e);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;
+  box-shadow:0 0 16px rgba(57,224,59,.6);
+  animation:float 3s ease-in-out infinite;
+}
+.badge-play{
+  position:absolute;top:-4px;right:10px;z-index:3;
+  width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,var(--y),#c89000);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;
+  box-shadow:0 0 12px rgba(245,200,0,.5);
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* TV screen */
+.tv-outer{
+  width:230px;
+  border-radius:10px;
+  background:#111;
+  border:3px solid #222;
+  box-shadow:0 0 30px rgba(57,224,59,.2),0 0 60px rgba(57,224,59,.06);
+  overflow:hidden;
+  position:relative;
+}
+.tv-topbar{
+  background:linear-gradient(90deg,#0a1e0a,#162816);
+  padding:5px 10px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(57,224,59,.2);
+}
+.tv-topbar .tbl{font-size:7px;font-weight:800;color:var(--g);letter-spacing:.5px}
+.tv-topbar .tbl span{color:var(--y)}
+.tv-dot{width:6px;height:6px;border-radius:50%;background:var(--g);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.tv-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,52px);
+  gap:2px;padding:3px;background:#0a0f0a;
+}
+.tv-cell{border-radius:4px;overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:flex-end}
+.tv-cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.75}
+.tv-cell-label{
+  position:relative;z-index:1;
+  background:linear-gradient(0deg,rgba(0,0,0,.9) 0%,transparent 100%);
+  padding:3px 4px 3px;font-size:6px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;
+}
+.tv-cell.span2{grid-column:span 2}
+.lg{color:var(--g)}.ly{color:var(--y)}.lw{color:#fff}
+
+/* STB box */
+.stb-wrap{
+  width:180px;margin-top:6px;
+  background:linear-gradient(135deg,#0d1e0d,#0a1408);
+  border:1px solid rgba(57,224,59,.35);border-radius:8px;
+  padding:8px 12px;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:0 4px 16px rgba(57,224,59,.15);
+}
+.stb-body{
+  flex:1;
+  background:linear-gradient(135deg,#111,#1a1a1a);
+  border-radius:5px;height:28px;
+  border:1px solid #333;
+  display:flex;align-items:center;justify-content:center;gap:4px;
+}
+.stb-led{width:5px;height:5px;border-radius:50%;background:var(--g);animation:blink 2s infinite}
+.stb-name{font-size:7px;font-weight:800;color:var(--g)}
+.stb-remote{font-size:1.4rem}
+
+/* "IPTV + VOD" overlay label */
+.tv-iptv-label{
+  background:rgba(0,0,0,.75);
+  padding:4px 8px;text-align:center;
+  border-top:1px solid rgba(57,224,59,.2);
+}
+.tv-iptv-label .ipl-main{font-size:9px;font-weight:900;color:#fff;letter-spacing:.5px}
+.tv-iptv-label .ipl-sub{font-size:7px;color:rgba(255,255,255,.5);letter-spacing:.3px}
+
+/* ── PACKAGES SECTION ── */
+.pkgs-section{
+  background:linear-gradient(180deg,#07100a 0%,#060c08 100%);
+  padding:18px 14px 14px;
+}
+.pkgs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.pkg{border-radius:16px;padding:0;position:relative;overflow:hidden}
+.pkg.g{background:linear-gradient(160deg,#0d2010,#0a1a0c);border:2px solid var(--g);
+  box-shadow:0 0 24px rgba(57,224,59,.12)}
+.pkg.y{background:linear-gradient(160deg,#1c1600,#141000);border:2px solid var(--y);
+  box-shadow:0 0 24px rgba(245,200,0,.12)}
+
+/* PAKET ribbon */
+.pkg-ribbon{
+  position:absolute;top:0;left:0;
+  background:linear-gradient(90deg,transparent,rgba(0,0,0,.3));
+  padding:6px 24px 6px 12px;
+  font-size:9px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  clip-path:polygon(0 0,100% 0,85% 100%,0 100%);
+}
+.g .pkg-ribbon{background:var(--g);color:#000}
+.y .pkg-ribbon{background:var(--y);color:#000}
+
+.pkg-body{padding:10px 14px 14px}
+
+/* price */
+.pkg-price-row{margin-top:22px;display:flex;align-items:flex-start;gap:3px;line-height:1}
+.pkg-num{font-size:4.8rem;font-weight:900;letter-spacing:-3px;line-height:.9}
+.g .pkg-num{color:var(--g)}.y .pkg-num{color:var(--y)}
+.pkg-price-right{padding-top:8px}
+.pkg-ribu{font-size:1rem;font-weight:900;color:#fff;display:block}
+.pkg-bln{font-size:.7rem;color:#888;font-weight:600}
+
+/* UP TO / speed */
+.pkg-upto-row{margin:8px 0 2px;display:flex;align-items:center;gap:6px}
+.pkg-upto-badge{
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  border-radius:5px;padding:2px 8px;
+  font-size:.6rem;font-weight:900;letter-spacing:1px;color:#fff;
+}
+.pkg-speed{font-size:2.8rem;font-weight:900;color:#fff;letter-spacing:-2px;line-height:1}
+.pkg-speed .mbps{font-size:.8rem;font-weight:600;color:#999;margin-left:2px}
+
+/* iptv label */
+.pkg-iptv-lbl{font-size:.65rem;font-weight:900;letter-spacing:.5px;text-transform:uppercase;margin:8px 0 10px}
+.g .pkg-iptv-lbl{color:var(--g)}.y .pkg-iptv-lbl{color:var(--y)}
+.pkg-iptv-sub{font-size:.58rem;color:#888;font-weight:600;letter-spacing:.3px;text-transform:uppercase;margin-top:-8px;margin-bottom:10px}
+
+/* mini */
+.pkg-mini{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.mini{
+  background:rgba(255,255,255,.06);border-radius:8px;padding:7px 8px;
+  display:flex;align-items:center;gap:6px;
+  border:1px solid rgba(255,255,255,.08);
+}
+.mini-ic{font-size:.95rem;flex-shrink:0}
+.mini-txt strong{display:block;font-size:.6rem;font-weight:900;margin-bottom:1px}
+.mini-txt span{font-size:.5rem;color:#888;line-height:1.3;display:block}
+
+.pkg-btn{
+  display:block;width:100%;margin-top:10px;padding:9px;
+  border-radius:50px;border:none;font-family:'Montserrat',sans-serif;
+  font-size:.72rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  cursor:pointer;text-align:center;text-decoration:none;
+  transition:opacity .2s;
+}
+.g .pkg-btn{background:var(--g);color:#000}
+.y .pkg-btn{background:var(--y);color:#000}
+.pkg-btn:hover{opacity:.85}
+
+/* ── BENEFITS STRIP ── */
+.benefits-strip{
+  background:#070e09;
+  border-top:1px solid rgba(57,224,59,.12);
+  border-bottom:1px solid rgba(57,224,59,.12);
+  padding:14px;
+}
+.benefits-inner{
+  max-width:600px;margin:0 auto;
+  background:rgba(0,0,0,.35);border:1px solid rgba(57,224,59,.2);
+  border-radius:50px;padding:10px 18px;
+  display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:8px;
+}
+.ben-item{display:flex;align-items:center;gap:7px}
+.ben-ic{font-size:1.2rem}
+.ben-txt{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;line-height:1.3;color:#ddd}
+
+/* ── CTA ROW ── */
+.cta-row{
+  background:#070e09;padding:16px 14px 20px;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;
+}
+.cta-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(90deg,var(--g),var(--ly));
+  color:#000;border-radius:50px;padding:12px 24px;
+  font-weight:900;font-size:.85rem;letter-spacing:.5px;text-transform:uppercase;
+  text-decoration:none;
+  box-shadow:0 4px 18px rgba(57,224,59,.3);
+  transition:transform .15s;
+}
+.cta-btn:hover{transform:translateY(-2px)}
+.cta-text{font-size:.95rem;font-weight:900;text-transform:uppercase}
+.cta-text .cta-l1{color:#fff;display:block}
+.cta-text .cta-l2{color:var(--y);font-style:italic}
+
+/* ══════════════════════════════
+   FORM PAGE
+══════════════════════════════ */
+.form-wrap{max-width:580px;margin:0 auto;padding:28px 20px 60px}
+.form-header{text-align:center;margin-bottom:28px}
+.step-chip{display:inline-block;background:linear-gradient(90deg,#009e3f,#b89000);
+  color:#fff;font-size:10px;font-weight:800;letter-spacing:2px;padding:5px 16px;border-radius:50px;margin-bottom:10px}
+.form-header h2{font-size:22px;font-weight:900;margin-bottom:6px}
+.form-header p{font-size:12px;color:rgba(255,255,255,.45)}
+
+.form-card{background:#0b1510;border:1px solid var(--border);border-radius:18px;padding:24px;margin-bottom:18px}
+.form-card h4{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--lg);
+  text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,.6);
+  text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);
+  border-radius:10px;padding:12px 14px;color:#fff;font-family:'Montserrat',sans-serif;
+  font-size:13px;font-weight:500;outline:none;transition:.2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  border-color:rgba(0,200,80,.5);background:rgba(0,200,80,.05);box-shadow:0 0 0 3px rgba(0,200,80,.12)}
+.form-group select option{background:#0b1510;color:#fff}
+.form-group textarea{resize:vertical;min-height:72px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.form-row{grid-template-columns:1fr}}
+
+.paket-selector{display:flex;gap:10px}
+.paket-option{flex:1;border:1.5px solid rgba(255,255,255,.12);border-radius:12px;
+  padding:12px 10px;text-align:center;cursor:pointer;transition:.2s;background:rgba(255,255,255,.04)}
+.paket-option:hover{border-color:rgba(0,200,80,.4);background:rgba(0,200,80,.06)}
+.paket-option.selected{border-color:var(--lg);background:rgba(0,212,90,.1)}
+.paket-option .po-speed{font-size:20px;font-weight:900}
+.paket-option .po-price{font-size:11px;font-weight:700;color:rgba(255,255,255,.45);margin-top:2px}
+.paket-option.selected .po-speed{color:#7fffb2}
+.ref-note{font-size:11px;color:rgba(255,255,255,.35);margin-top:6px;font-style:italic}
+
+.btn-submit{width:100%;padding:15px;border-radius:14px;border:none;
+  background:linear-gradient(90deg,#009e3f,#f5c800);color:#fff;
+  font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;
+  letter-spacing:1px;cursor:pointer;text-transform:uppercase;
+  box-shadow:0 6px 28px rgba(0,180,100,.25);transition:.2s;margin-top:8px}
+.btn-submit:hover{transform:translateY(-2px)}
+
+.success-screen{display:none;text-align:center;padding:40px 20px}
+.check-circle{width:80px;height:80px;background:linear-gradient(135deg,#00d45a,#f5c800);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:38px;margin:0 auto 20px;box-shadow:0 0 40px rgba(0,212,90,.3)}
+.success-screen h2{font-size:22px;font-weight:900;margin-bottom:8px}
+.success-screen p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7}
+.ticket{background:#0b1510;border:1px solid var(--border);border-radius:14px;padding:18px;margin:20px 0;text-align:left}
+.ticket-row{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border)}
+.ticket-row:last-child{border-bottom:none}
+.ticket-row .lbl{color:rgba(255,255,255,.45);font-weight:600}
+.ticket-row .val{color:#fff;font-weight:700}
+.btn-wa{background:linear-gradient(90deg,#25d366,#128c7e);color:#fff;border:none;
+  border-radius:50px;padding:12px 22px;font-family:'Montserrat',sans-serif;
+  font-size:12px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.btn-call{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.25);
+  border-radius:50px;padding:12px 20px;font-family:'Montserrat',sans-serif;
+  font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+
+/* ══════════════════════════════
+   AFILIASI PAGE
+══════════════════════════════ */
+.afil-wrap{max-width:580px;margin:0 auto;padding:28px 20px 60px}
+.afil-hero{background:linear-gradient(135deg,#002610,#1a1400);border-radius:18px;
+  padding:28px;text-align:center;margin-bottom:20px;border:1px solid rgba(255,255,255,.1);
+  position:relative;overflow:hidden}
+.afil-hero::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(0,200,80,.15) 0%,transparent 60%)}
+.afil-hero .coin{font-size:52px;margin-bottom:12px}
+.afil-hero h2{font-size:24px;font-weight:900;margin-bottom:8px}
+.afil-hero h2 span{color:#7fffb2}
+.afil-hero p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.7;max-width:380px;margin:0 auto}
+.section-label{font-size:10px;font-weight:800;letter-spacing:3px;color:var(--lg);text-transform:uppercase;margin-bottom:14px}
+.komisi-card{background:linear-gradient(135deg,rgba(0,200,80,.15),rgba(245,200,0,.12));
+  border:1px solid rgba(0,200,80,.3);border-radius:16px;padding:20px;text-align:center;margin-bottom:20px}
+.komisi-amount{font-size:44px;font-weight:900;color:#7fffb2;line-height:1}
+.komisi-label{font-size:12px;color:rgba(255,255,255,.5);font-weight:600;margin-top:4px}
+.komisi-note{font-size:11px;color:rgba(255,255,255,.35);margin-top:8px;font-style:italic}
+.tier-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
+.tier-card{border-radius:14px;padding:16px;text-align:center}
+.tier-card.br{background:#140e00;border:1px solid #8b6914}
+.tier-card.si{background:#111;border:1px solid #777}
+.tier-card.go{background:#171200;border:1px solid var(--ly);box-shadow:0 0 16px rgba(245,200,0,.1)}
+.tier-card.pl{background:#0a160a;border:1px solid var(--lg);box-shadow:0 0 16px rgba(0,212,90,.1)}
+.tc-name{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.br .tc-name{color:#d4a017}.si .tc-name{color:#aaa}.go .tc-name{color:var(--ly)}.pl .tc-name{color:var(--lg)}
+.tc-ref{font-size:22px;font-weight:900;margin-bottom:4px}
+.tc-sub{font-size:10px;color:#777}
+.tc-sub strong{display:block;font-size:.9rem;font-weight:900;color:#fff;margin-top:2px}
+.syarat-card{background:#0b1510;border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:20px}
+.syarat-card h4{font-size:11px;font-weight:800;letter-spacing:2px;color:#7fbfff;text-transform:uppercase;margin-bottom:14px}
+.syarat-item{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+.syarat-num{width:26px;height:26px;background:linear-gradient(135deg,#009e3f,#f5c800);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:1px;color:#000}
+.syarat-txt{font-size:12px;color:rgba(255,255,255,.7);line-height:1.6;font-weight:500}
+.afil-form-card{background:#0b1510;border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:20px}
+.afil-form-card h4{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--lg);text-transform:uppercase;margin-bottom:16px}
+.how-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.how-step{background:#0b1510;border:1px solid var(--border);border-radius:14px;
+  padding:16px;display:flex;gap:14px;align-items:flex-start}
+.how-num{width:32px;height:32px;background:linear-gradient(135deg,#009e3f,#f5c800);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;flex-shrink:0;color:#000}
+.how-content h5{font-size:13px;font-weight:700;margin-bottom:3px}
+.how-content p{font-size:11px;color:rgba(255,255,255,.5);line-height:1.6}
+.link-result{display:none;background:rgba(0,200,80,.08);border:1px solid rgba(0,200,80,.25);
+  border-radius:14px;padding:18px;margin-bottom:20px}
+.link-result h5{font-size:11px;font-weight:800;letter-spacing:1px;color:var(--lg);text-transform:uppercase;margin-bottom:10px}
+.link-box{display:flex;gap:8px;align-items:center}
+.link-url{flex:1;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:10px 12px;font-size:11px;color:#aff;font-weight:600;
+  word-break:break-all;min-height:42px;display:flex;align-items:center}
+.btn-copy{background:var(--lg);color:#000;border:none;border-radius:8px;
+  padding:10px 14px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap}
+.share-row{display:flex;gap:8px;margin-top:10px}
+.btn-share{flex:1;padding:9px;border-radius:8px;border:none;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;cursor:pointer}
+.btn-share.wa{background:linear-gradient(90deg,#25d366,#128c7e);color:#fff}
+.btn-share.copy2{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.15)}
+.stats-card{background:#0b1510;border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:20px;display:none}
+.stats-card h4{font-size:11px;font-weight:800;letter-spacing:2px;color:#ffd700;text-transform:uppercase;margin-bottom:14px}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat-box{background:rgba(255,255,255,.05);border-radius:12px;padding:14px;text-align:center}
+.stat-box .sv{font-size:26px;font-weight:900;color:#fff}
+.stat-box .sl{font-size:10px;color:rgba(255,255,255,.4);font-weight:600;text-transform:uppercase;margin-top:3px}
+.stat-box .sv.green{color:#7fffb2}
+.kontak-box{background:linear-gradient(135deg,rgba(0,80,30,.35),rgba(100,80,0,.3));
+  border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px;text-align:center;margin-bottom:14px}
+.kontak-box h3{font-size:15px;font-weight:800;margin-bottom:5px}
+.kontak-box p{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:16px}
+.kontak-num{font-size:20px;font-weight:900;color:#7fffb2;letter-spacing:1px;margin-bottom:16px}
+.btn-row{display:flex;gap:10px;justify-content:center}
+.mt8{margin-top:8px}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.2);font-size:12px}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.4)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+</style>
+</head>
+<body>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('brosur',this)"><span>📺</span>Promo</button>
+  <button class="tab-btn" onclick="showTab('daftar',this)"><span>📋</span>Daftar</button>
+  <button class="tab-btn" onclick="showTab('afiliasi',this)"><span>💰</span>Afiliasi</button>
+</nav>
+
+<!-- ══════ BROSUR ══════ -->
+<div id="tab-brosur" class="tab-page active">
+<div class="brosur">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+
+      <!-- LEFT -->
+      <div class="h-left">
+        <div class="h-logo"><span class="gc">Core</span><span class="yc">.id</span></div>
+        <div class="h-title">
+          <span class="l1">INTERNET CEPAT,<span class="speed-lines"> ══</span></span>
+          <span class="l2">HIBURAN HEBAT!</span>
+        </div>
+        <div class="h-pills">
+          <div class="h-pill"><span class="pic">🏎️</span><span>INTERNET STABIL & CEPAT</span></div>
+          <div class="h-pill"><span class="pic">📺</span><span>IPTV + VOD LENGKAP</span></div>
+          <div class="h-pill"><span class="pic">🎧</span><span>SUPPORT RESPONSIF</span></div>
+        </div>
+      </div>
+
+      <!-- RIGHT — TV MOCKUP -->
+      <div class="h-right">
+        <div class="badge-wifi">📶</div>
+        <div class="badge-play">▶</div>
+        <div class="tv-outer">
+          <div class="tv-topbar">
+            <span class="tbl">IPTV + VOD <span>Ribuan Channel & Film Favorit</span></span>
+            <div class="tv-dot"></div>
+          </div>
+          <div class="tv-grid">
+            <!-- LIVE SPORTS wide -->
+            <div class="tv-cell span2" style="background:linear-gradient(135deg,#0a2d10,#042010)">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem">⚽</div>
+              <div class="tv-cell-label lg">⚡ LIVE SPORTS</div>
+            </div>
+            <div class="tv-cell" style="background:linear-gradient(135deg,#2a0a00,#1a0600)">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem">🎬</div>
+              <div class="tv-cell-label ly">MOVIE</div>
+            </div>
+            <div class="tv-cell" style="background:linear-gradient(135deg,#00161a,#001012)">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem">📰</div>
+              <div class="tv-cell-label lw">NEWS</div>
+            </div>
+            <div class="tv-cell" style="background:linear-gradient(135deg,#200028,#140018)">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem">🎭</div>
+              <div class="tv-cell-label lw">DRAMA</div>
+            </div>
+            <div class="tv-cell" style="background:linear-gradient(135deg,#001a20,#001018)">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem">👶</div>
+              <div class="tv-cell-label lw">KIDS</div>
+            </div>
+            <div class="tv-cell" style="background:linear-gradient(135deg,#1a1200,#100c00)">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem">🎵</div>
+              <div class="tv-cell-label ly">MUSIC</div>
+            </div>
+            <div class="tv-cell" style="background:linear-gradient(135deg,#0a200a,#061406)">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem">🏆</div>
+              <div class="tv-cell-label lg">SPORT</div>
+            </div>
+          </div>
+          <div class="tv-iptv-label">
+            <div class="ipl-main">IPTV + VOD</div>
+            <div class="ipl-sub">RIBUAN CHANNEL & FILM FAVORIT</div>
+          </div>
+        </div>
+        <!-- STB BOX -->
+        <div class="stb-wrap">
+          <div class="stb-body">
+            <div class="stb-led"></div>
+            <span class="stb-name">Core.id</span>
+          </div>
+          <span class="stb-remote">🎮</span>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /hero -->
+
+  <!-- PACKAGES -->
+  <div class="pkgs-section">
+    <div class="pkgs-grid">
+
+      <!-- 150K -->
+      <div class="pkg g">
+        <div class="pkg-ribbon">PAKET</div>
+        <div class="pkg-body">
+          <div class="pkg-price-row">
+            <span class="pkg-num">150</span>
+            <div class="pkg-price-right">
+              <span class="pkg-ribu">RIBU</span>
+              <span class="pkg-bln">/BULAN</span>
+            </div>
+          </div>
+          <div class="pkg-upto-row">
+            <span class="pkg-upto-badge">UP TO</span>
+          </div>
+          <div class="pkg-speed">20<span class="mbps">Mbps</span></div>
+          <div class="pkg-iptv-lbl">IPTV + VOD</div>
+          <div class="pkg-iptv-sub">RIBUAN CHANNEL & FILM</div>
+          <div class="pkg-mini">
+            <div class="mini">
+              <span class="mini-ic">📺</span>
+              <div class="mini-txt">
+                <strong>IPTV</strong>
+                <span>Channel Lokal &<br>Internasional</span>
+              </div>
+            </div>
+            <div class="mini">
+              <span class="mini-ic">🎬</span>
+              <div class="mini-txt">
+                <strong>VOD</strong>
+                <span>Film Box Office &<br>Series Favorit</span>
+              </div>
+            </div>
+          </div>
+          <a href="#" class="pkg-btn" onclick="pilihPaket('20 Mbps — Rp 150.000/bulan');return false">Pilih Paket →</a>
+        </div>
+      </div>
+
+      <!-- 200K -->
+      <div class="pkg y">
+        <div class="pkg-ribbon">PAKET</div>
+        <div class="pkg-body">
+          <div class="pkg-price-row">
+            <span class="pkg-num">200</span>
+            <div class="pkg-price-right">
+              <span class="pkg-ribu">RIBU</span>
+              <span class="pkg-bln">/BULAN</span>
+            </div>
+          </div>
+          <div class="pkg-upto-row">
+            <span class="pkg-upto-badge">UP TO</span>
+          </div>
+          <div class="pkg-speed">50<span class="mbps">Mbps</span></div>
+          <div class="pkg-iptv-lbl">IPTV + VOD</div>
+          <div class="pkg-iptv-sub">RIBUAN CHANNEL & FILM</div>
+          <div class="pkg-mini">
+            <div class="mini">
+              <span class="mini-ic">📺</span>
+              <div class="mini-txt">
+                <strong>IPTV</strong>
+                <span>Channel Lokal &<br>Internasional</span>
+              </div>
+            </div>
+            <div class="mini">
+              <span class="mini-ic">🎬</span>
+              <div class="mini-txt">
+                <strong>VOD</strong>
+                <span>Film Box Office &<br>Series Favorit</span>
+              </div>
+            </div>
+          </div>
+          <a href="#" class="pkg-btn" onclick="pilihPaket('50 Mbps — Rp 200.000/bulan');return false">Pilih Paket →</a>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /pkgs -->
+
+  <!-- BENEFITS -->
+  <div class="benefits-strip">
+    <div class="benefits-inner">
+      <div class="ben-item"><span class="ben-ic">📶</span><div class="ben-txt">Internet<br>Tanpa Batas</div></div>
+      <div class="ben-item"><span class="ben-ic">🛡️</span><div class="ben-txt">Koneksi<br>Stabil 24/7</div></div>
+      <div class="ben-item"><span class="ben-ic">👨‍👩‍👧</span><div class="ben-txt">Cocok untuk<br>Keluarga & Bisnis</div></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-row">
+    <a href="#" class="cta-btn" onclick="showTabByName('daftar');return false">
+      LANGGANAN SEKARANG! &nbsp;→
+    </a>
+    <div class="cta-text">
+      <span class="cta-l1">HIDUP LEBIH MUDAH,</span>
+      <span class="cta-l2">HIBURAN TANPA BATAS!</span>
+    </div>
+  </div>
+
+  <!-- KONTAK -->
+  <div style="padding:14px;background:#060c06">
+    <div class="kontak-box" style="margin-bottom:0">
+      <h3>📲 Pasang Sekarang, Gratis Instalasi!</h3>
+      <p>CS kami siap 7 hari seminggu — hubungi via WhatsApp</p>
+      <div class="kontak-num">0857-3259-0938</div>
+      <div class="btn-row">
+        <button class="btn-wa" onclick="window.open('https://wa.me/6285732590938?text=Halo+Core.id%2C+saya+mau+info+pasang+internet+%2B+IPTV+VOD','_blank')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </button>
+        <button class="btn-call" onclick="window.location.href='tel:085732590938'">📞 Telepon</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /tab-brosur -->
+
+
+<!-- ══════ DAFTAR ══════ -->
+<div id="tab-daftar" class="tab-page">
+<div class="form-wrap">
+  <div class="form-header">
+    <div class="step-chip">📋 Formulir Pendaftaran</div>
+    <h2>Daftar Pasang Core.id</h2>
+    <p>Isi data lengkap, tim kami akan segera menghubungi Anda</p>
+  </div>
+  <form id="mainForm" onsubmit="submitForm(event)">
+    <div class="form-card">
+      <h4>👤 Data Pribadi</h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nama Lengkap *</label>
+          <input type="text" id="f-nama" placeholder="Nama sesuai KTP" required>
+        </div>
+        <div class="form-group">
+          <label>Nama Panggilan *</label>
+          <input type="text" id="f-panggilan" placeholder="Nama panggilan" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Nomor WhatsApp *</label>
+        <input type="tel" id="f-wa" placeholder="Contoh: 08123456789" required>
+      </div>
+    </div>
+    <div class="form-card">
+      <h4>📍 Alamat & Lokasi</h4>
+      <div class="form-group">
+        <label>Alamat Lengkap *</label>
+        <textarea id="f-alamat" placeholder="Jalan, RT/RW, Kelurahan, Kecamatan..." required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Lokasi Pemasangan *</label>
+        <select id="f-lokasi" required>
+          <option value="" disabled selected>Pilih tipe lokasi</option>
+          <option>Rumah Tinggal</option>
+          <option>Kontrakan / Kos</option>
+          <option>Warung / Toko</option>
+          <option>Kantor / Ruko</option>
+          <option>Cafe / Restoran</option>
+          <option>Lainnya</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Catatan Lokasi</label>
+        <input type="text" id="f-catatan" placeholder="Patokan / info tambahan">
+      </div>
+    </div>
+    <div class="form-card">
+      <h4>📦 Pilih Paket</h4>
+      <div class="paket-selector" id="paketSelector">
+        <div class="paket-option selected" onclick="selectPaket(this,'20 Mbps — Rp 150.000/bulan')">
+          <div class="po-speed">20 <span style="font-size:13px;color:rgba(255,255,255,.5)">Mbps</span></div>
+          <div class="po-price">Rp 150.000/bln</div>
+        </div>
+        <div class="paket-option" onclick="selectPaket(this,'50 Mbps — Rp 200.000/bulan')">
+          <div class="po-speed">50 <span style="font-size:13px;color:rgba(255,255,255,.5)">Mbps</span></div>
+          <div class="po-price">Rp 200.000/bln</div>
+        </div>
+      </div>
+      <input type="hidden" id="f-paket" value="20 Mbps — Rp 150.000/bulan">
+    </div>
+    <div class="form-card">
+      <h4>🔗 Kode Referral (Opsional)</h4>
+      <div class="form-group">
+        <label>Kode Afiliasi</label>
+        <input type="text" id="f-ref" placeholder="Masukkan kode referral jika ada" style="text-transform:uppercase">
+        <div class="ref-note">Jika mendaftar via link afiliasi, kode sudah terisi otomatis.</div>
+      </div>
+    </div>
+    <button type="submit" class="btn-submit">🚀 Kirim Pendaftaran</button>
+  </form>
+  <div class="success-screen" id="successScreen">
+    <div class="check-circle">✓</div>
+    <h2>Pendaftaran Terkirim!</h2>
+    <p>Tim Core.id akan menghubungi Anda dalam <strong>1×24 jam</strong> untuk konfirmasi jadwal pemasangan.</p>
+    <div class="ticket" id="ticketInfo"></div>
+    <button class="btn-wa" style="margin:0 auto;padding:14px 28px" onclick="kirimWA()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Kirim Konfirmasi ke WA Core.id
+    </button>
+  </div>
+</div>
+</div><!-- /tab-daftar -->
+
+
+<!-- ══════ AFILIASI ══════ -->
+<div id="tab-afiliasi" class="tab-page">
+<div class="afil-wrap">
+  <div class="afil-hero">
+    <div class="coin">💰</div>
+    <h2>Program <span>Afiliasi</span> Core.id</h2>
+    <p>Bagikan link, dapatkan komisi. Setiap pelanggan baru yang berhasil dipasang melalui link Anda menghasilkan komisi!</p>
+  </div>
+  <div class="komisi-card">
+    <div class="komisi-amount">Rp 50.000</div>
+    <div class="komisi-label">Komisi Per Pelanggan Baru yang Berhasil Terpasang</div>
+    <div class="komisi-note">* Komisi dicairkan setelah instalasi pelanggan selesai dan aktif</div>
+  </div>
+  <p class="section-label" style="text-align:left">Cara Kerja Afiliasi</p>
+  <div class="how-steps">
+    <div class="how-step"><div class="how-num">1</div><div class="how-content"><h5>Daftar & Dapatkan Link</h5><p>Isi data di bawah, sistem membuat link unik dengan kode referral khusus Anda.</p></div></div>
+    <div class="how-step"><div class="how-num">2</div><div class="how-content"><h5>Bagikan Link ke Orang Lain</h5><p>Kirim via WhatsApp, Instagram, TikTok, Facebook, atau media sosial lainnya.</p></div></div>
+    <div class="how-step"><div class="how-num">3</div><div class="how-content"><h5>Calon Pelanggan Mendaftar</h5><p>Saat mereka mengklik link dan mengisi formulir, kode referral Anda tercatat otomatis.</p></div></div>
+    <div class="how-step"><div class="how-num">4</div><div class="how-content"><h5>Terima Komisi</h5><p>Setelah instalasi aktif, komisi langsung ditransfer ke rekening/e-wallet Anda.</p></div></div>
+  </div>
+  <div class="syarat-card">
+    <h4>📜 Syarat & Ketentuan</h4>
+    <div class="syarat-item"><div class="syarat-num">1</div><div class="syarat-txt">Komisi dihitung per pelanggan baru yang berhasil <strong>dipasang dan aktif</strong>.</div></div>
+    <div class="syarat-item"><div class="syarat-num">2</div><div class="syarat-txt">Satu kode berlaku <strong>tidak terbatas</strong> — semakin banyak referral, semakin besar komisi.</div></div>
+    <div class="syarat-item"><div class="syarat-num">3</div><div class="syarat-txt">Pencairan setiap minggu via transfer bank / e-wallet setelah konfirmasi tim Core.id.</div></div>
+    <div class="syarat-item"><div class="syarat-num">4</div><div class="syarat-txt">Dilarang pendaftaran palsu atau manipulasi data. Pelanggaran berakibat pembatalan komisi.</div></div>
+  </div>
+  <div class="afil-form-card">
+    <h4>🚀 Daftar Jadi Afiliator</h4>
+    <div class="form-group"><label>Nama Lengkap</label><input type="text" id="a-nama" placeholder="Nama Anda"></div>
+    <div class="form-group"><label>Nomor WhatsApp</label><input type="tel" id="a-wa" placeholder="08xxxxxxxxxx"></div>
+    <div class="form-group"><label>Rekening / E-Wallet Pencairan</label><input type="text" id="a-rekening" placeholder="No. rekening atau e-wallet"></div>
+    <button class="btn-submit mt8" onclick="generateLink()">⚡ Generate Link Afiliasi Saya</button>
+  </div>
+  <div class="link-result" id="linkResult">
+    <h5>🔗 Link Afiliasi Anda</h5>
+    <div class="link-box">
+      <div class="link-url" id="linkUrl"></div>
+      <button class="btn-copy" onclick="copyLink()">Salin</button>
+    </div>
+    <div class="share-row">
+      <button class="btn-share wa" onclick="shareWA()">📲 Bagikan via WhatsApp</button>
+      <button class="btn-share copy2" onclick="copyLink()">📋 Salin Link</button>
+    </div>
+    <div style="margin-top:12px;padding:10px 12px;background:rgba(245,200,0,.08);border:1px solid rgba(245,200,0,.2);border-radius:10px">
+      <div style="font-size:11px;color:#f5c800;font-weight:700;margin-bottom:3px">💡 Kode Referral Anda:</div>
+      <div style="font-size:18px;font-weight:900;color:#fff;letter-spacing:3px" id="kodeRef"></div>
+    </div>
+  </div>
+  <div class="stats-card" id="statsCard">
+    <h4>📊 Statistik Afiliasi Anda</h4>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="sv" id="statKlik">0</div><div class="sl">Link Diklik</div></div>
+      <div class="stat-box"><div class="sv" id="statDaftar">0</div><div class="sl">Pendaftar</div></div>
+      <div class="stat-box"><div class="sv green" id="statKomisi">Rp 0</div><div class="sl">Total Komisi</div></div>
+    </div>
+  </div>
+  <div class="kontak-box">
+    <h3>💬 Pertanyaan tentang Afiliasi?</h3>
+    <p>Hubungi tim Core.id via WhatsApp</p>
+    <div class="kontak-num">0857-3259-0938</div>
+    <div class="btn-row">
+      <button class="btn-wa" onclick="window.open('https://wa.me/6285732590938?text=Halo+Core.id%2C+saya+ingin+info+program+afiliasi','_blank')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+</div><!-- /tab-afiliasi -->
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+function showTabByName(id){
+  const btns=document.querySelectorAll('.tab-btn');
+  const map={brosur:0,daftar:1,afiliasi:2};
+  showTab(id,btns[map[id]]);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// url ref
+(function(){
+  const ref=new URLSearchParams(window.location.search).get('ref');
+  if(ref){
+    const el=document.getElementById('f-ref');
+    if(el) el.value=ref.toUpperCase();
+    let s=JSON.parse(localStorage.getItem('afil_stats_'+ref)||'{"klik":0,"daftar":0}');
+    s.klik++;localStorage.setItem('afil_stats_'+ref,JSON.stringify(s));
+  }
+})();
+
+function selectPaket(el,val){
+  document.querySelectorAll('.paket-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('f-paket').value=val;
+}
+function pilihPaket(val){
+  showTabByName('daftar');
+  setTimeout(()=>{
+    document.querySelectorAll('.paket-option').forEach(o=>{
+      if(o.querySelector('.po-price').textContent.includes(val.split('Rp ')[1])) o.click();
+    });
+  },100);
+}
+
+let formData={};
+function submitForm(e){
+  e.preventDefault();
+  const nama=document.getElementById('f-nama').value.trim();
+  const panggilan=document.getElementById('f-panggilan').value.trim();
+  const wa=document.getElementById('f-wa').value.trim();
+  const alamat=document.getElementById('f-alamat').value.trim();
+  const lokasi=document.getElementById('f-lokasi').value;
+  const catatan=document.getElementById('f-catatan').value.trim();
+  const paket=document.getElementById('f-paket').value;
+  const ref=document.getElementById('f-ref').value.trim();
+  if(!nama||!panggilan||!wa||!alamat||!lokasi){alert('Mohon lengkapi semua field wajib (*)');return;}
+  formData={nama,panggilan,wa,alamat,lokasi,catatan,paket,ref};
+  if(ref){let s=JSON.parse(localStorage.getItem('afil_stats_'+ref)||'{"klik":0,"daftar":0}');s.daftar++;localStorage.setItem('afil_stats_'+ref,JSON.stringify(s));}
+  const rows=[['Nama Lengkap',nama],['Nama Panggilan',panggilan],['No. WhatsApp',wa],['Paket',paket],['Lokasi',lokasi],['Alamat',alamat],ref?['Kode Referral',ref]:null].filter(Boolean);
+  document.getElementById('ticketInfo').innerHTML=rows.map(([l,v])=>`<div class="ticket-row"><span class="lbl">${l}</span><span class="val">${v}</span></div>`).join('');
+  document.getElementById('mainForm').style.display='none';
+  document.getElementById('successScreen').style.display='block';
+  document.getElementById('successScreen').scrollIntoView({behavior:'smooth'});
+}
+function kirimWA(){
+  const{nama,panggilan,wa,alamat,lokasi,catatan,paket,ref}=formData;
+  let msg=`*PENDAFTARAN INTERNET CORE.ID*\n\n👤 Nama: ${nama}\n🔖 Panggilan: ${panggilan}\n📱 WA: ${wa}\n📍 Alamat: ${alamat}\n🏠 Lokasi: ${lokasi}`;
+  if(catatan) msg+=`\n📝 Catatan: ${catatan}`;
+  msg+=`\n📦 Paket: ${paket}`;
+  if(ref) msg+=`\n🔗 Referral: ${ref}`;
+  msg+=`\n\nMohon konfirmasi jadwal pemasangan. Terima kasih!`;
+  window.open('https://wa.me/6285732590938?text='+encodeURIComponent(msg),'_blank');
+}
+
+function generateLink(){
+  const nama=document.getElementById('a-nama').value.trim();
+  const wa=document.getElementById('a-wa').value.trim();
+  if(!nama||!wa){alert('Mohon isi nama dan nomor WhatsApp.');return;}
+  const clean=nama.toUpperCase().replace(/[^A-Z0-9]/g,'').substring(0,4);
+  const rand=Math.random().toString(36).substring(2,6).toUpperCase();
+  const code=clean+rand;
+  const afilData={nama,wa,rekening:document.getElementById('a-rekening').value.trim(),code,created:new Date().toLocaleDateString('id-ID')};
+  localStorage.setItem('my_afil_code',code);
+  localStorage.setItem('afil_data_'+code,JSON.stringify(afilData));
+  if(!localStorage.getItem('afil_stats_'+code)) localStorage.setItem('afil_stats_'+code,JSON.stringify({klik:0,daftar:0}));
+  const link=window.location.href.split('?')[0]+'?ref='+code;
+  document.getElementById('linkUrl').textContent=link;
+  document.getElementById('kodeRef').textContent=code;
+  document.getElementById('linkResult').style.display='block';
+  document.getElementById('linkResult').scrollIntoView({behavior:'smooth'});
+  const s=JSON.parse(localStorage.getItem('afil_stats_'+code)||'{"klik":0,"daftar":0}');
+  document.getElementById('statKlik').textContent=s.klik;
+  document.getElementById('statDaftar').textContent=s.daftar;
+  document.getElementById('statKomisi').textContent='Rp 0*';
+  document.getElementById('statsCard').style.display='block';
+}
+function copyLink(){
+  const url=document.getElementById('linkUrl').textContent;
+  navigator.clipboard.writeText(url).then(()=>{
+    const b=event.target,o=b.textContent;b.textContent='✓ Disalin!';setTimeout(()=>b.textContent=o,2000);
+  }).catch(()=>{const e=document.createElement('textarea');e.value=url;document.body.appendChild(e);e.select();document.execCommand('copy');document.body.removeChild(e);alert('Link disalin!');});
+}
+function shareWA(){
+  const url=document.getElementById('linkUrl').textContent;
+  const code=document.getElementById('kodeRef').textContent;
+  const msg=`*Hei! Saya rekomendasikan Core.id — Internet Cepat + IPTV & VOD!* 📺\n\n✅ Mulai 150 Ribuan/bulan\n✅ Internet stabil 24/7\n✅ IPTV + VOD ribuan channel & film\n\n👉 Daftar: ${url}\n(Kode referral: *${code}*)`;
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+(function(){
+  const c=localStorage.getItem('my_afil_code');
+  if(c){const d=JSON.parse(localStorage.getItem('afil_data_'+c)||'null');if(d){document.getElementById('a-nama').value=d.nama;document.getElementById('a-wa').value=d.wa;if(d.rekening)document.getElementById('a-rekening').value=d.rekening;}}
+})();
+</script>
+</body>
+</html>
