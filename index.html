@@ -16,14 +16,130 @@ body{font-family:'Montserrat',sans-serif;background:var(--dark);color:#fff;min-h
 
 /* ══ TABS ══ */
 .tab-nav{display:flex;background:#060a06;border-bottom:1px solid rgba(57,224,59,.2);position:sticky;top:0;z-index:100}
-.tab-btn{flex:1;padding:14px 10px;background:none;border:none;color:rgba(255,255,255,.45);
-  font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;
+.tab-btn{flex:1;padding:11px 4px;background:none;border:none;color:rgba(255,255,255,.45);
+  font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.5px;
   text-transform:uppercase;cursor:pointer;border-bottom:2px solid transparent;transition:.2s}
 .tab-btn.active{color:#fff;border-bottom-color:var(--g)}
-.tab-btn span{display:block;font-size:17px;margin-bottom:3px}
+.tab-btn span{display:block;font-size:16px;margin-bottom:2px}
 .tab-page{display:none;animation:fadeIn .3s ease}
 .tab-page.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════
+   DASHBOARD PAGE
+══════════════════════════════ */
+.dash-wrap{max-width:580px;margin:0 auto;padding:20px 16px 60px}
+
+/* locked screen */
+.dash-locked{text-align:center;padding:50px 20px}
+.dash-locked .lock-ic{font-size:52px;margin-bottom:16px}
+.dash-locked h3{font-size:18px;font-weight:900;margin-bottom:8px}
+.dash-locked p{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:20px;line-height:1.6}
+
+/* profile card */
+.dash-profile{
+  background:linear-gradient(135deg,#0d2010,#1a1400);
+  border:1px solid rgba(57,224,59,.25);border-radius:18px;
+  padding:20px;margin-bottom:16px;
+  display:flex;align-items:center;gap:16px;
+}
+.dash-avatar{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,var(--g),var(--y));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;font-weight:900;color:#000;flex-shrink:0;
+}
+.dash-profile-info .dp-name{font-size:16px;font-weight:900}
+.dash-profile-info .dp-code{font-size:11px;color:var(--lg);font-weight:700;margin-top:2px;letter-spacing:1px}
+.dash-profile-info .dp-since{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px}
+
+/* stat cards */
+.dash-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.dstat{border-radius:14px;padding:16px;text-align:center;position:relative;overflow:hidden}
+.dstat.blue{background:linear-gradient(135deg,#001a40,#001228);border:1px solid rgba(0,120,255,.3)}
+.dstat.green{background:linear-gradient(135deg,#001a0a,#001206);border:1px solid rgba(0,200,80,.3)}
+.dstat.yellow{background:linear-gradient(135deg,#1a1200,#100c00);border:1px solid rgba(245,200,0,.3)}
+.dstat.purple{background:linear-gradient(135deg,#180020,#100018);border:1px solid rgba(150,0,255,.3)}
+.dstat-icon{font-size:1.4rem;margin-bottom:6px}
+.dstat-val{font-size:1.8rem;font-weight:900;line-height:1}
+.dstat.blue .dstat-val{color:#5bb8ff}
+.dstat.green .dstat-val{color:var(--lg)}
+.dstat.yellow .dstat-val{color:var(--ly)}
+.dstat.purple .dstat-val{color:#c084fc}
+.dstat-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+  color:rgba(255,255,255,.45);margin-top:4px}
+
+/* komisi box */
+.komisi-earned{
+  background:linear-gradient(135deg,rgba(0,200,80,.15),rgba(245,200,0,.1));
+  border:1px solid rgba(0,200,80,.3);border-radius:16px;
+  padding:18px 20px;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.ke-left .ke-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--lg)}
+.ke-left .ke-amount{font-size:2.4rem;font-weight:900;color:#fff;line-height:1.1}
+.ke-left .ke-sub{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px}
+.ke-right{text-align:right}
+.ke-right .ke-rate{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:4px}
+.ke-right .ke-aktif{font-size:1.2rem;font-weight:900;color:var(--lg)}
+.ke-right .ke-aktif-lbl{font-size:9px;color:rgba(255,255,255,.4)}
+
+/* manual konfirmasi */
+.konfirm-card{background:#0b1510;border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px}
+.konfirm-card h4{font-size:10px;font-weight:800;letter-spacing:2px;color:var(--ly);text-transform:uppercase;margin-bottom:12px}
+.konfirm-row{display:flex;gap:8px;margin-bottom:8px}
+.konfirm-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:10px 12px;color:#fff;font-family:'Montserrat',sans-serif;font-size:12px;outline:none}
+.konfirm-input:focus{border-color:var(--lg)}
+.btn-konfirm{background:var(--lg);color:#000;border:none;border-radius:8px;
+  padding:10px 14px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap}
+
+/* link box */
+.dash-link-card{background:#0b1510;border:1px solid rgba(57,224,59,.2);border-radius:14px;padding:16px;margin-bottom:16px}
+.dash-link-card h4{font-size:10px;font-weight:800;letter-spacing:2px;color:var(--lg);text-transform:uppercase;margin-bottom:10px}
+.dash-link-box{display:flex;gap:6px;align-items:center;margin-bottom:10px}
+.dash-link-url{flex:1;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:9px 11px;font-size:10px;color:#7fffb2;font-weight:600;
+  word-break:break-all;min-height:38px;display:flex;align-items:center}
+.btn-copy-sm{background:var(--lg);color:#000;border:none;border-radius:7px;
+  padding:9px 12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;cursor:pointer;white-space:nowrap}
+.dash-share-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn-ds{padding:9px;border-radius:8px;border:none;font-family:'Montserrat',sans-serif;
+  font-size:10px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
+.btn-ds.wa{background:linear-gradient(90deg,#25d366,#128c7e);color:#fff}
+.btn-ds.ig{background:linear-gradient(90deg,#833ab4,#fd1d1d,#fcb045);color:#fff}
+
+/* activity log */
+.activity-card{background:#0b1510;border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px}
+.activity-card h4{font-size:10px;font-weight:800;letter-spacing:2px;color:#7fbfff;text-transform:uppercase;
+  margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.activity-card h4 button{background:rgba(255,255,255,.08);border:none;border-radius:6px;
+  padding:4px 8px;color:rgba(255,255,255,.5);font-size:9px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif}
+.activity-empty{text-align:center;padding:20px;font-size:12px;color:rgba(255,255,255,.3)}
+.activity-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 0;border-bottom:1px solid var(--border);
+}
+.activity-item:last-child{border-bottom:none}
+.act-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.act-dot.green{background:var(--lg)}.act-dot.yellow{background:var(--ly)}.act-dot.blue{background:#5bb8ff}
+.act-info{flex:1}
+.act-name{font-size:12px;font-weight:700;margin-bottom:2px}
+.act-detail{font-size:10px;color:rgba(255,255,255,.45)}
+.act-time{font-size:9px;color:rgba(255,255,255,.3);text-align:right;flex-shrink:0}
+
+/* tips */
+.tips-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px}
+.tips-card h4{font-size:10px;font-weight:800;letter-spacing:2px;color:#c084fc;text-transform:uppercase;margin-bottom:12px}
+.tip-item{display:flex;gap:10px;margin-bottom:10px;font-size:11px;color:rgba(255,255,255,.7);line-height:1.5}
+.tip-item:last-child{margin-bottom:0}
+.tip-num{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#833ab4,#fd1d1d);
+  display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;flex-shrink:0;margin-top:1px}
+
+/* reset btn */
+.btn-reset{width:100%;padding:12px;background:rgba(255,50,50,.1);border:1px solid rgba(255,50,50,.2);
+  border-radius:10px;color:rgba(255,100,100,.8);font-family:'Montserrat',sans-serif;
+  font-size:11px;font-weight:700;cursor:pointer;margin-top:4px}
 
 /* ══════════════════════════════
    BROSUR PAGE
@@ -432,6 +548,7 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
   <button class="tab-btn active" onclick="showTab('brosur',this)"><span>📺</span>Promo</button>
   <button class="tab-btn" onclick="showTab('daftar',this)"><span>📋</span>Daftar</button>
   <button class="tab-btn" onclick="showTab('afiliasi',this)"><span>💰</span>Afiliasi</button>
+  <button class="tab-btn" onclick="showTab('dashboard',this)"><span>📊</span>Dashboard</button>
 </nav>
 
 <!-- ══════ BROSUR ══════ -->
@@ -794,18 +911,240 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
 </div>
 </div><!-- /tab-afiliasi -->
 
+<!-- ══════ DASHBOARD ══════ -->
+<div id="tab-dashboard" class="tab-page">
+<div class="dash-wrap">
+
+  <!-- locked (no afil code) -->
+  <div id="dashLocked" class="dash-locked" style="display:none">
+    <div class="lock-ic">🔒</div>
+    <h3>Dashboard Belum Aktif</h3>
+    <p>Daftarkan diri Anda sebagai Afiliator terlebih dahulu di tab Afiliasi untuk mengakses dashboard ini.</p>
+    <button class="btn-submit" onclick="showTabByName('afiliasi')">➡️ Ke Tab Afiliasi</button>
+  </div>
+
+  <!-- main dashboard -->
+  <div id="dashContent">
+
+    <!-- profile -->
+    <div class="dash-profile">
+      <div class="dash-avatar" id="dashAvatar">?</div>
+      <div class="dash-profile-info">
+        <div class="dp-name" id="dashName">—</div>
+        <div class="dp-code" id="dashCode">KODE: —</div>
+        <div class="dp-since" id="dashSince">Bergabung: —</div>
+      </div>
+    </div>
+
+    <!-- stat cards -->
+    <div class="dash-stats">
+      <div class="dstat blue">
+        <div class="dstat-icon">👆</div>
+        <div class="dstat-val" id="dStatKlik">0</div>
+        <div class="dstat-lbl">Link Diklik</div>
+      </div>
+      <div class="dstat green">
+        <div class="dstat-icon">📋</div>
+        <div class="dstat-val" id="dStatDaftar">0</div>
+        <div class="dstat-lbl">Pendaftar</div>
+      </div>
+      <div class="dstat yellow">
+        <div class="dstat-icon">✅</div>
+        <div class="dstat-val" id="dStatAktif">0</div>
+        <div class="dstat-lbl">Aktif Terpasang</div>
+      </div>
+      <div class="dstat purple">
+        <div class="dstat-icon">💸</div>
+        <div class="dstat-val" id="dStatKomisi">Rp 0</div>
+        <div class="dstat-lbl">Total Komisi</div>
+      </div>
+    </div>
+
+    <!-- komisi box -->
+    <div class="komisi-earned">
+      <div class="ke-left">
+        <div class="ke-label">💰 Komisi Diperoleh</div>
+        <div class="ke-amount" id="dKomisiAmount">Rp 0</div>
+        <div class="ke-sub">@ Rp 50.000 / pelanggan aktif</div>
+      </div>
+      <div class="ke-right">
+        <div class="ke-rate">Pelanggan Aktif</div>
+        <div class="ke-aktif" id="dKomisiAktif">0</div>
+        <div class="ke-aktif-lbl">orang</div>
+      </div>
+    </div>
+
+    <!-- manual konfirmasi -->
+    <div class="konfirm-card">
+      <h4>✅ Konfirmasi Pelanggan Aktif</h4>
+      <p style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:10px">Setelah tim Core.id konfirmasi instalasi via WA, masukkan nama pelanggan yang sudah aktif:</p>
+      <div class="konfirm-row">
+        <input type="text" class="konfirm-input" id="konfirmNama" placeholder="Nama pelanggan baru aktif">
+        <button class="btn-konfirm" onclick="konfirmasiAktif()">+ Konfirmasi</button>
+      </div>
+    </div>
+
+    <!-- link afiliasi -->
+    <div class="dash-link-card">
+      <h4>🔗 Link Afiliasi Anda</h4>
+      <div class="dash-link-box">
+        <div class="dash-link-url" id="dashLinkUrl">—</div>
+        <button class="btn-copy-sm" onclick="copyDashLink()">Salin</button>
+      </div>
+      <div class="dash-share-row">
+        <button class="btn-ds wa" onclick="shareDashWA()">📲 WhatsApp</button>
+        <button class="btn-ds ig" onclick="shareDashIG()">📸 Instagram</button>
+      </div>
+    </div>
+
+    <!-- activity log -->
+    <div class="activity-card">
+      <h4>📝 Log Aktivitas <button onclick="clearActivity()">Hapus Log</button></h4>
+      <div id="activityList"><div class="activity-empty">Belum ada aktivitas tercatat.</div></div>
+    </div>
+
+    <!-- tips -->
+    <div class="tips-card">
+      <h4>💡 Tips Marketing</h4>
+      <div class="tip-item"><div class="tip-num">1</div><span>Bagikan ke grup WhatsApp keluarga & teman — mereka paling percaya rekomendasi Anda.</span></div>
+      <div class="tip-item"><div class="tip-num">2</div><span>Posting di Instagram/Facebook dengan cerita personal: "Saya pakai Core.id dan puas!"</span></div>
+      <div class="tip-item"><div class="tip-num">3</div><span>Ingatkan calon pelanggan bahwa IPTV+VOD sudah include — value lebih dari provider lain.</span></div>
+      <div class="tip-item"><div class="tip-num">4</div><span>Follow up orang yang sudah klik link tapi belum daftar — tanyakan via WA secara personal.</span></div>
+      <div class="tip-item"><div class="tip-num">5</div><span>Konsisten posting 1x sehari — konsistensi lebih penting dari sekali viral.</span></div>
+    </div>
+
+    <!-- reset -->
+    <button class="btn-reset" onclick="resetDashboard()">🗑️ Reset Data Dashboard</button>
+
+  </div><!-- /dashContent -->
+</div><!-- /dash-wrap -->
+</div><!-- /tab-dashboard -->
+
 <script>
 function showTab(id,btn){
   document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   btn.classList.add('active');
+  if(id==='dashboard') loadDashboard();
 }
 function showTabByName(id){
   const btns=document.querySelectorAll('.tab-btn');
-  const map={brosur:0,daftar:1,afiliasi:2};
+  const map={brosur:0,daftar:1,afiliasi:2,dashboard:3};
   showTab(id,btns[map[id]]);
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── DASHBOARD ── */
+function loadDashboard(){
+  const code=localStorage.getItem('my_afil_code');
+  if(!code){
+    document.getElementById('dashLocked').style.display='block';
+    document.getElementById('dashContent').style.display='none';
+    return;
+  }
+  document.getElementById('dashLocked').style.display='none';
+  document.getElementById('dashContent').style.display='block';
+  const d=JSON.parse(localStorage.getItem('afil_data_'+code)||'{}');
+  const s=JSON.parse(localStorage.getItem('afil_stats_'+code)||'{"klik":0,"daftar":0}');
+  const aktif=parseInt(localStorage.getItem('afil_aktif_'+code)||'0');
+  const komisi=aktif*50000;
+  // profile
+  const inits=(d.nama||'?').trim().split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  document.getElementById('dashAvatar').textContent=inits||'?';
+  document.getElementById('dashName').textContent=d.nama||'—';
+  document.getElementById('dashCode').textContent='KODE: '+code;
+  document.getElementById('dashSince').textContent='Bergabung: '+(d.created||'—');
+  // stat cards
+  document.getElementById('dStatKlik').textContent=s.klik||0;
+  document.getElementById('dStatDaftar').textContent=s.daftar||0;
+  document.getElementById('dStatAktif').textContent=aktif;
+  document.getElementById('dStatKomisi').textContent='Rp '+komisi.toLocaleString('id-ID');
+  // komisi box
+  document.getElementById('dKomisiAmount').textContent='Rp '+komisi.toLocaleString('id-ID');
+  document.getElementById('dKomisiAktif').textContent=aktif;
+  // link
+  const link=window.location.href.split('?')[0]+'?ref='+code;
+  document.getElementById('dashLinkUrl').textContent=link;
+  // activity
+  renderActivity(code);
+}
+
+function konfirmasiAktif(){
+  const code=localStorage.getItem('my_afil_code');
+  if(!code) return;
+  const nama=document.getElementById('konfirmNama').value.trim();
+  if(!nama){alert('Masukkan nama pelanggan yang sudah aktif.');return;}
+  let aktif=parseInt(localStorage.getItem('afil_aktif_'+code)||'0');
+  aktif++;
+  localStorage.setItem('afil_aktif_'+code,aktif);
+  addActivity(code,nama,'aktif');
+  document.getElementById('konfirmNama').value='';
+  loadDashboard();
+  alert('✅ Pelanggan "'+nama+'" dikonfirmasi aktif!\nKomisi +Rp 50.000 ditambahkan.');
+}
+
+function addActivity(code,nama,type){
+  const acts=JSON.parse(localStorage.getItem('afil_activity_'+code)||'[]');
+  const now=new Date();
+  const ts=now.toLocaleDateString('id-ID')+' '+now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  acts.unshift({nama,type,time:ts});
+  if(acts.length>20) acts.pop();
+  localStorage.setItem('afil_activity_'+code,JSON.stringify(acts));
+}
+
+function renderActivity(code){
+  const acts=JSON.parse(localStorage.getItem('afil_activity_'+code)||'[]');
+  const el=document.getElementById('activityList');
+  if(!acts.length){el.innerHTML='<div class="activity-empty">Belum ada aktivitas tercatat.</div>';return;}
+  el.innerHTML=acts.map(a=>{
+    const dc=a.type==='aktif'?'green':a.type==='daftar'?'yellow':'blue';
+    const lbl=a.type==='aktif'?'Pelanggan Aktif (+Rp 50.000)':a.type==='daftar'?'Pendaftar Baru':'Link Diklik';
+    return `<div class="activity-item"><div class="act-dot ${dc}"></div><div class="act-info"><div class="act-name">${a.nama}</div><div class="act-detail">${lbl}</div></div><div class="act-time">${a.time}</div></div>`;
+  }).join('');
+}
+
+function clearActivity(){
+  const code=localStorage.getItem('my_afil_code');
+  if(!code) return;
+  if(confirm('Hapus semua log aktivitas?')){
+    localStorage.removeItem('afil_activity_'+code);
+    renderActivity(code);
+  }
+}
+
+function copyDashLink(){
+  const url=document.getElementById('dashLinkUrl').textContent;
+  navigator.clipboard.writeText(url).then(()=>{
+    const b=event.target,o=b.textContent;b.textContent='✓ Disalin!';setTimeout(()=>b.textContent=o,2000);
+  }).catch(()=>{const e=document.createElement('textarea');e.value=url;document.body.appendChild(e);e.select();document.execCommand('copy');document.body.removeChild(e);alert('Link disalin!');});
+}
+
+function shareDashWA(){
+  const code=localStorage.getItem('my_afil_code');
+  if(!code) return;
+  const link=window.location.href.split('?')[0]+'?ref='+code;
+  const msg=`*Hei! Saya rekomendasikan Core.id — Internet Cepat + IPTV & VOD!* 📺\n\n✅ Mulai 150 Ribuan/bulan\n✅ Internet stabil 24/7\n✅ IPTV + VOD ribuan channel & film\n\n👉 Daftar via link saya: ${link}\n\n(Kode referral: *${code}*)`;
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+
+function shareDashIG(){
+  const code=localStorage.getItem('my_afil_code');
+  if(!code) return;
+  const link=window.location.href.split('?')[0]+'?ref='+code;
+  const caption=`🌐 Mau internet cepat + IPTV lengkap?\n\nCoba Core.id! Mulai 150 Ribu/bulan sudah dapat:\n✅ Internet up to 50Mbps\n✅ IPTV + VOD ribuan channel\n✅ Support 24 jam\n\nDaftar di: ${link}\n\n#coreid #internetcepat #iptv #internetmurah`;
+  navigator.clipboard.writeText(caption).then(()=>alert('Caption Instagram disalin!\nTinggal paste di postingan Anda 📸')).catch(()=>alert('Caption:\n\n'+caption));
+}
+
+function resetDashboard(){
+  if(!confirm('Reset semua data dashboard?\nStatistik dan log aktivitas akan dihapus.')) return;
+  const code=localStorage.getItem('my_afil_code');
+  if(code){
+    localStorage.removeItem('afil_aktif_'+code);
+    localStorage.removeItem('afil_activity_'+code);
+  }
+  loadDashboard();
+  alert('Data dashboard telah direset.');
 }
 
 // url ref
